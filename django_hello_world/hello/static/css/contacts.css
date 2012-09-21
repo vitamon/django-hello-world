@@ -9,10 +9,7 @@
 
 .label {
     font-size: 14px;
-    padding-top: 2px;
-    padding-right: 2px;
-    padding-bottom: 2px;
-    padding-left: 2px;
+    padding: 2px;
     font-family: Georgia, serif;
     line-height: 18px
 }
@@ -26,7 +23,7 @@
 .table_main {
     vertical-align: top;
     width: 800px;
-    height: 500px;
+    height: 300px;
     left: 152px;
     background-image: none;
     padding-top: 20px;
@@ -45,12 +42,23 @@
     vertical-align: top;
 }
 
-.table_column .label{
+.table_column .label {
     width: 40%;
     text-align: right;
 }
 
-.table_column .field_text{
+.table_column .field_text {
     width: 60%;
     text-align: left;
+}
+
+.hline {
+    vertical-align: top;
+    width: 96%;
+    height: 1px;
+}
+
+.main {
+    width: 100%;
+    padding: 10px;
 }

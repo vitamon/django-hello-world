@@ -9,7 +9,7 @@
 {% block content %}
     <div class="title">42 Coffee Cups Test Assignment</div>
 
-    <div>
+    <div class="main">
         <table class="table_main">
             <tr>
                 <td>
@@ -31,7 +31,7 @@
 
                         <tr>
                             <td class="label">Bio:</td>
-                            <td class="field_text">{% lorem 30 w%}</td>
+                            <td class="field_text">{% lorem 30 w %}</td>
                         </tr>
 
                     </table>
@@ -59,12 +59,16 @@
 
                         <tr>
                             <td class="label">Other contacts:</td>
-                            <td class="field_text">{% lorem 10 w%}</td>
+                            <td class="field_text">{% lorem 10 w %}</td>
                         </tr>
 
                     </table>
                 </td>
             </tr>
         </table>
+        <hr class="hline"/>
+        <div>
+            <a id="req_link" class="req_link" href="{% url requests %}">requests</a>
+        </div>
     </div>
 {% endblock content %}

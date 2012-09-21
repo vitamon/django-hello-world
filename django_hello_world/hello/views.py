@@ -4,11 +4,9 @@ from django.contrib.auth.models import User
 
 @render_to('hello/home.html')
 def home(request):
-    users = User.objects.filter()
-    return {'users': users}
+    return {}
 
 
-@render_to('hello/contact.html')
-def contact(request):
-    users = User.objects.filter()
-    return {'users': users}
+@render_to('hello/requests.html')
+def requests(request):
+    return {}
