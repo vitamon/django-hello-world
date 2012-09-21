@@ -17,5 +17,5 @@ class BaseSeleniumTest(TestCase):
 
         browser = webdriver.Firefox() # Get local session of firefox
         browser.get('http://0.0.0.0:8000') # Load page
-        assert "Hello, 42cc!!!" in browser.title
+        assert "Hello, 42cc!" in browser.title
         browser.close()
