@@ -1,0 +1,56 @@
+.title {
+    font-size: 22px;
+    padding: 20px;
+    font-family: Georgia, serif;
+    line-height: 26px;
+    font-weight: normal;
+    font-family: Georgia, serif;
+}
+
+.label {
+    font-size: 14px;
+    padding-top: 2px;
+    padding-right: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    font-family: Georgia, serif;
+    line-height: 18px
+}
+
+.label .field_text {
+    font-weight: bold;
+    font-size: 18px;
+
+}
+
+.table_main {
+    vertical-align: top;
+    width: 800px;
+    height: 500px;
+    left: 152px;
+    background-image: none;
+    padding-top: 20px;
+}
+
+.table_main tbody {
+    vertical-align: top;
+}
+
+.table_main td {
+    width: 50%;
+    padding-right: 20px;
+}
+
+.table_column {
+    vertical-align: top;
+}
+
+.table_column .label{
+    width: 40%;
+    text-align: right;
+}
+
+.table_column .field_text{
+    width: 60%;
+    text-align: left;
+}
