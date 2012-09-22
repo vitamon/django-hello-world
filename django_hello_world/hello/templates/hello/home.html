@@ -9,6 +9,15 @@
 {% block content %}
     <div class="title">42 Coffee Cups Test Assignment</div>
 
+    <div class="login_form">
+        {% if request.user %}
+            <div class="username">{{ request.user.username }}</div>
+            <a class="req_link" href="{% url logout %} }}">Logout</a>
+        {% else %}
+            <a class="req_link" href="{% url login %}">Login</a>
+        {% endif %}
+    </div>
+
     <div class="main">
         <table class="table_main">
             <tr>
