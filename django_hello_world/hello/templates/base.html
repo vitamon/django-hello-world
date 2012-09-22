@@ -3,6 +3,10 @@
 <html>
 
 <head>
+    {% if settings.AUTHOR %}
+        <meta name="author" content="{{ settings.AUTHOR }}"/>
+    {% endif %}
+
     <title>{% block title %}No title{% endblock %}</title>
     {% block scripts %}{% endblock %}
 </head>

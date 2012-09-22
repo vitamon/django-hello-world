@@ -9,6 +9,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# for testing context processor
+AUTHOR = "vit :: vit.tam@gmail.com"
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
@@ -107,6 +110,16 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+     "django.contrib.auth.context_processors.auth",
+     "django.core.context_processors.debug",
+     "django.core.context_processors.i18n",
+     "django.core.context_processors.media",
+     "django.core.context_processors.static",
+     "django.contrib.messages.context_processors.messages",
+     'django_hello_world.hello.context_processors.django_settings',
 )
 
 INSTALLED_APPS = (
