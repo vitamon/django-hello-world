@@ -1,11 +1,12 @@
+from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
 from selenium import webdriver, selenium
+from hello.models import RequestsLog
 
 
 class HttpTest(TestCase):
-
     def test_home(self):
         client = Client()
         response = client.get(reverse('home'))
@@ -40,3 +41,13 @@ class HttpTest(TestCase):
         self.assertRegexpMatches(browser.current_url, r'requests/$')
         assert 'Top 10 requests' in browser.page_source
         browser.close()
+'''
+    def test_empty_request(self):
+        client = Client()
+        response = client.get(reverse('requests'))
+        self.assertContains(response, 'The log is empty')
+'''
+
+
+
+

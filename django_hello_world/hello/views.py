@@ -1,5 +1,5 @@
 from annoying.decorators import render_to
-from django.contrib.auth.models import User
+from hello.models import RequestsLog
 
 
 @render_to('hello/home.html')
@@ -9,4 +9,5 @@ def home(request):
 
 @render_to('hello/requests.html')
 def requests(request):
-    return {}
+    top_ten = RequestsLog.objects.get_last_ten()
+    return {"items": top_ten}

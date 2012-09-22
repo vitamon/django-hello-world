@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load webdesign %}
 
 {% block title %} Top 10 requests {% endblock %}
 {% block scripts %}
@@ -7,4 +6,9 @@
 {% endblock %}
 
 {% block content %}
+    {% for item in items %}
+        <ul class="req_list"><span> {{ item.id }} | </span>  {{ item.time }} | {{ item.time|timesince }} ago<span> | </span> <span class="url"> {{ item.url }}</span></ul>
+    {% empty %}
+        <div>The log is empty</div>
+    {% endfor %}
 {% endblock content %}

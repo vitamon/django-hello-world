@@ -62,3 +62,21 @@
     width: 100%;
     padding: 10px;
 }
+
+#req_link {
+    color: rgb(17, 17, 239);
+    font-size: 14px;
+    padding: 2px;
+    font-family: Georgia, serif;
+}
+
+.req_list {
+    font-size: 14px;
+    font-family: Georgia, serif;
+    color: rgb(128, 128, 128);
+}
+
+.req_list span {
+    font-size: 14px;
+    color: rgb(1, 1, 8);
+}
