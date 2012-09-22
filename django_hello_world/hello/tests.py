@@ -34,12 +34,11 @@ class HttpTest(TestCase):
         assert settings.AUTHOR is not None
         self.assertContains(response, settings.AUTHOR)
 
-@skip
 class SeleniumTests(TestCase):
 
     def test_selenium_simple(self):
         browser = webdriver.Firefox() # Get local session of firefox
-        browser.get('http://0.0.0.0:8000') # Load page
+        browser.get('http://localhost:8000') # Load page
         assert "Hello, 42cc!" in browser.title
         browser.close()
 
@@ -49,9 +48,18 @@ class SeleniumTests(TestCase):
         should be open the requests page
         """
         browser = webdriver.Firefox()
-        browser.get('http://0.0.0.0:8000')
-        browser.find_element_by_id("req_link").click()
+        browser.get('http://localhost:8000')
+        browser.find_element_by_id(r"req_link").click()
         browser.implicitly_wait(500)
         self.assertRegexpMatches(browser.current_url, r'requests/$')
         assert 'Top 10 requests' in browser.page_source
+        browser.close()
+
+    def test_login(self):
+        browser = webdriver.Firefox()
+        browser.get('http://localhost:8000')
+        assert 'login' in browser.page_source
+        browser.find_element_by_id("login").click()
+        browser.implicitly_wait(500)
+        self.assertRegexpMatches(browser.current_url, r'login/$')
         browser.close()

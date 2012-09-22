@@ -5,11 +5,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
     url(r'^$', 'django_hello_world.hello.views.home', name='home'),
     url(r'^requests/$', 'django_hello_world.hello.views.requests', name='requests'),
-    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
-    # url(r'^django_hello_world/', include('django_hello_world.foo.urls')),
+    url(r'^logout/$', 'django_hello_world.hello.views.logout_view', name='logout'),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html' }, name="login"),
+   # url(r'^logout/$', 'django.contrib.auth.views.logout',{'template_name': 'logout.html' }, name='logout'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

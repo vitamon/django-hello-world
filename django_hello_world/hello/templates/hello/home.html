@@ -10,11 +10,11 @@
     <div class="title">42 Coffee Cups Test Assignment</div>
 
     <div class="login_form">
-        {% if request.user %}
-            <div class="username">{{ request.user.username }}</div>
-            <a class="req_link" href="{% url logout %} }}">Logout</a>
+        {% if user.is_authenticated %}
+            <div class="user_name">{{ user.username }} |
+                <a class="req_link" id="logout" href="{% url logout %}">logout</a></div>
         {% else %}
-            <a class="req_link" href="{% url login %}">Login</a>
+            <a class="req_link" id="login" href="{% url login %}">login</a>
         {% endif %}
     </div>
 

@@ -1,23 +1,20 @@
+div {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    color: black;
+    padding: 2px;
+    font-weight: lighter;
+}
+
 .title {
     font-size: 22px;
     padding: 20px;
-    font-family: Georgia, serif;
     line-height: 26px;
     font-weight: normal;
-    font-family: Georgia, serif;
 }
 
-.label {
-    font-size: 14px;
-    padding: 2px;
-    font-family: Georgia, serif;
-    line-height: 18px
-}
-
-.label .field_text {
-    font-weight: bold;
-    font-size: 18px;
-
+.field_text {
+    font-weight: normal;
 }
 
 .table_main {
@@ -44,7 +41,7 @@
 
 .table_column .label {
     width: 40%;
-    text-align: right;
+    text-align: left;
 }
 
 .table_column .field_text {
@@ -54,8 +51,7 @@
 
 .hline {
     vertical-align: top;
-    width: 96%;
-    height: 1px;
+    width: 99%;
 }
 
 .main {
@@ -63,16 +59,13 @@
     padding: 10px;
 }
 
-#req_link {
-    color: rgb(17, 17, 239);
-    font-size: 14px;
-    padding: 2px;
-    font-family: Georgia, serif;
+.user_name {
+    font-weight: normal;
 }
 
 .req_list {
-    font-size: 14px;
     font-family: Georgia, serif;
+    font-size: 14px;
     color: rgb(128, 128, 128);
 }
 
@@ -80,3 +73,18 @@
     font-size: 14px;
     color: rgb(1, 1, 8);
 }
+
+.login_form {
+    top: 30px;
+    left: 575px;
+    width: 150px;
+    height: 18px;
+    border: none;
+    position: absolute;
+    overflow: visible;
+    cursor: auto;
+    margin-top: 1px;
+    margin-left: 1px;
+    z-index: 1000;
+}
+
