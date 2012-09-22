@@ -17,67 +17,64 @@
             <a class="req_link" id="login" href="{% url login %}">login</a>
         {% endif %}
     </div>
-
-    <div class="main">
-        <table class="table_main">
+    <div>
+        <table class="column_left">
             <tr>
-                <td>
-                    <table class="table_column">
-                        <tr>
-                            <td class="label">Name</td>
-                            <td class="field_text">Vitalii</td>
-                        </tr>
+                <td class="label">Name</td>
+                <td class="field_text">Vitalii</td>
+            </tr>
 
-                        <tr>
-                            <td class="label">Last name</td>
-                            <td class="field_text">Tamazian</td>
-                        </tr>
+            <tr>
+                <td class="label">Last name</td>
+                <td class="field_text">Tamazian</td>
+            </tr>
 
-                        <tr>
-                            <td class="label">Date of birth</td>
-                            <td class="field_text">20.01.1974</td>
-                        </tr>
+            <tr>
+                <td class="label">Date of birth</td>
+                <td class="field_text">20.01.1974</td>
+            </tr>
 
-                        <tr>
-                            <td class="label">Bio:</td>
-                            <td class="field_text">{% lorem 30 w %}</td>
-                        </tr>
+            <tr>
+                <td class="label">Photo:</td>
+                <td class="field_text"></td>
+            </tr>
 
-                    </table>
-                </td>
-                <td>
-                    <table class="table_column">
-                        <tr>
-                            <td class="label">Contacts</td>
-                        </tr>
+        </table>
+        <div class="photo"></div>
+        <table class="column_right">
+            <tr>
+                <td class="label">Contacts</td>
+            </tr>
 
-                        <tr>
-                            <td class="label">Email:</td>
-                            <td class="field_text">vit.tam@gmail.com</td>
-                        </tr>
+            <tr>
+                <td class="label">Email:</td>
+                <td class="field_text">vit.tam@gmail.com</td>
+            </tr>
 
-                        <tr>
-                            <td class="label">Jabber:</td>
-                            <td class="field_text">vitamon@jabber.ru</td>
-                        </tr>
+            <tr>
+                <td class="label">Jabber:</td>
+                <td class="field_text">vitamon@jabber.ru</td>
+            </tr>
 
-                        <tr>
-                            <td class="label">Skype:</td>
-                            <td class="field_text">vit.tam</td>
-                        </tr>
+            <tr>
+                <td class="label">Skype:</td>
+                <td class="field_text">vit.tam</td>
+            </tr>
 
-                        <tr>
-                            <td class="label">Other contacts:</td>
-                            <td class="field_text">{% lorem 10 w %}</td>
-                        </tr>
+            <tr>
+                <td class="label">Other contacts:</td>
+                <td class="field_text">{% lorem 10 w %}</td>
+            </tr>
 
-                    </table>
-                </td>
+            <tr>
+                <td class="label">Bio:</td>
+                <td class="field_text">{% lorem 30 w %}</td>
             </tr>
         </table>
-        <hr class="hline"/>
-        <div>
-            <a id="req_link" class="req_link" href="{% url requests %}">requests</a>
-        </div>
     </div>
+    <div id="footer">
+        <div id="hline"></div>
+        <a id="req_link" class="req_link" href="{% url requests %}">requests</a>
+    </div>
+
 {% endblock content %}

@@ -2,61 +2,66 @@ div {
     font-family: Georgia, serif;
     font-size: 14px;
     color: black;
-    padding: 2px;
+    padding: 10px;
     font-weight: lighter;
+    vertical-align: top;
 }
 
 .title {
     font-size: 22px;
-    padding: 20px;
-    line-height: 26px;
     font-weight: normal;
+}
+
+.column_left {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 400px;
+    padding: 10px;
+    height: 100px;
+}
+
+.column_right {
+    position: absolute;
+    top: 80px;
+    left: 360px;
+    width: 400px;
+    height: 300px;
+    vertical-align: top;
+}
+
+#footer {
+    position: absolute;
+    top: 610px;
+    left: 0;
+    width: 100%;
+}
+
+#hline {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 670px;
+    height: 1px;
+    background-color: rgb(72, 72, 72);
+    border: none;
+    padding: 0;
+}
+
+.label {
+    vertical-align: top;
+    width: 30%;
+    text-align: left;
 }
 
 .field_text {
     font-weight: normal;
-}
-
-.table_main {
     vertical-align: top;
-    width: 800px;
-    height: 300px;
-    left: 152px;
-    background-image: none;
-    padding-top: 20px;
-}
-
-.table_main tbody {
-    vertical-align: top;
-}
-
-.table_main td {
-    width: 50%;
-    padding-right: 20px;
-}
-
-.table_column {
-    vertical-align: top;
-}
-
-.table_column .label {
-    width: 40%;
-    text-align: left;
 }
 
 .table_column .field_text {
     width: 60%;
     text-align: left;
-}
-
-.hline {
-    vertical-align: top;
-    width: 99%;
-}
-
-.main {
-    width: 100%;
-    padding: 10px;
 }
 
 .user_name {
@@ -86,5 +91,19 @@ div {
     margin-top: 1px;
     margin-left: 1px;
     z-index: 1000;
+}
+
+.photo {
+    top: 180px;
+    left: 10px;
+    width: 295px;
+    height: 390px;
+    overflow: visible;
+    position: absolute;
+    cursor: auto;
+    margin-top: 1px;
+    margin-left: 1px;
+    z-index: 1000;
+    border: 2px solid rgb(72, 72, 72);
 }
 
