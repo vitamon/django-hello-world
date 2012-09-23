@@ -1,13 +1,13 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.forms import Form
+from django.views.decorators.csrf import csrf_exempt
 import os
 from annoying.decorators import render_to
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render_to_response
-from django.utils import simplejson
-from django.views.decorators.csrf import csrf_exempt
-from hello.forms import UploadImageForm, UserProfileForm
+from hello.forms import  UserProfileForm
 from hello.models import RequestsLog
 from django.contrib.auth import logout
 from hello.util.modelUtils import unique_filename
@@ -20,23 +20,43 @@ def home(request):
     else:
         user = User.objects.all()[0]
 
-    return {'user': user.get_profile().as_dict() if user else {}, 'is_authenticated': request.user.is_authenticated()}
+    return {'user': user.get_profile().as_dict() if user else {},
+            'photo': user.get_profile().photo,
+            'is_authenticated': request.user.is_authenticated(),
+    }
 
 
 @login_required
 @render_to('hello/home_edit.html')
 def edit(request):
     user = request.user
-    if request.method == 'POST': # If the form has been submitted...
-        form = UserProfileForm(request.POST) # A form bound to the POST data
-        if form.is_valid(): # All validation rules pass
-            return redirect(reverse("home"))
-    else:
-        form = UserProfileForm(user.get_profile().as_dict()) # An unbound form
+    profile = request.user.get_profile()
+    form_saved = False
 
-    return {'user': user.get_profile().as_dict(),
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            photoFileName = profile.photo
+
+            if request.FILES and 'photo' in request.FILES:
+                photoFileName = unique_filename(request.FILES['photo']._name)
+                handle_uploaded_file(request.FILES['photo'], photoFileName)
+
+            profile.update_from(form.cleaned_data)
+            profile.photo = photoFileName
+            profile.save()
+            user.save()
+            form_saved = True
+        else:
+            print form.errors
+    else:
+        form = UserProfileForm(user.get_profile().as_dict())
+
+    return {'photo': user.get_profile().photo,
             'is_authenticated': request.user.is_authenticated(),
-            'form': form }
+            'form': form,
+            'form_saved': form_saved}
 
 
 @render_to('hello/requests.html')
@@ -50,19 +70,10 @@ def logout_view(request):
     return redirect(reverse("home"))
 
 
-@login_required
-@csrf_exempt
-def upload_image(request):
-    if request.method == 'POST':
-        form = UploadImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
-            #TODO add flash message
-
-    return redirect(reverse("home"))
-
+def upload_path(filename):
+    return os.path.join(settings.MEDIA_ROOT, filename)
 
 def handle_uploaded_file(f, filename):
-    destination = open(os.path.join(settings.MEDIA_ROOT, filename), 'wb+')
+    destination = open(upload_path(filename), 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)

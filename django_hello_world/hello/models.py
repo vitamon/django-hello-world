@@ -36,7 +36,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
 
     # Other fields here
-    birthdate = models.DateField(blank=True, null=True)
+    birthdate = models.DateField(blank=True, default=None, null=True)
     photo = models.ImageField(upload_to="photos/", default=None, null=True)
 
     jabber = models.CharField(max_length=20, default="", null=True)
@@ -58,6 +58,16 @@ class UserProfile(models.Model):
             "other_contacts": self.other_contacts
         }
 
+    def update_from(self, data):
+        self.user.first_name = data["first_name"]
+        self.user.last_name  = data["last_name"]
+        self.user.email = data["email"]
+        self.bio = data["bio"]
+        self.jabber  = data["jabber"]
+        self.photo = data["photo"]
+        self.birthdate = data["birthdate"]
+        self.skype = data["skype"]
+        self.other_contacts = data["other_contacts"]
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
