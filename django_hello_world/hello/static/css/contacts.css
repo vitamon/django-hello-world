@@ -4,7 +4,7 @@ div {
     color: black;
     padding: 10px;
     font-weight: lighter;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .title {
@@ -18,12 +18,21 @@ div {
     left: 0;
     width: 400px;
     padding: 10px;
-    height: 100px;
+    height: 110px;
 }
 
 .column_right {
     position: absolute;
     top: 80px;
+    left: 360px;
+    width: 400px;
+    height: 130px;
+    vertical-align: top;
+}
+
+.column_info {
+    position: absolute;
+    top: 220px;
     left: 360px;
     width: 400px;
     height: 300px;
@@ -32,7 +41,7 @@ div {
 
 #footer {
     position: absolute;
-    top: 610px;
+    top: 600px;
     left: 0;
     width: 100%;
 }
@@ -57,6 +66,10 @@ div {
 .field_text {
     font-weight: normal;
     vertical-align: top;
+}
+
+.info_ta {
+    width: 250px;
 }
 
 .table_column .field_text {
@@ -93,6 +106,20 @@ div {
     z-index: 1000;
 }
 
+.photo_edit {
+    top: 210px;
+    left: 10px;
+    width: 235px;
+    height: 320px;
+    overflow: visible;
+    position: absolute;
+    cursor: auto;
+    margin-top: 1px;
+    margin-left: 1px;
+    z-index: 1000;
+    border: 2px solid rgb(72, 72, 72);
+}
+
 .photo {
     top: 180px;
     left: 10px;
@@ -105,5 +132,21 @@ div {
     margin-left: 1px;
     z-index: 1000;
     border: 2px solid rgb(72, 72, 72);
+}
+
+.flash {
+    width: 50%;
+    font-size: 12px !important;
+    display: block;
+    padding: 4px 5px 4px 25px;
+    margin: 0 0 3px 0;
+    color: black;
+    background: #FFC
+}
+
+#buttons {
+    position:absolute;
+    top:560px;
+    left:20px;
 }
 

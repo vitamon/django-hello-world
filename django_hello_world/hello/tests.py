@@ -56,8 +56,10 @@ class SeleniumTests(TestCase):
         browser.close()
 
     def test_login(self):
+        """
+        """
         browser = webdriver.Firefox()
-        browser.get('http://localhost:8000')
+        browser.get('http://localhost:8000/logout')
         assert 'login' in browser.page_source
         browser.find_element_by_id("login").click()
         browser.implicitly_wait(500)

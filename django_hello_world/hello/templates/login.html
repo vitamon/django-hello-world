@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 
+{% block scripts %}
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/contacts.css"/>
+{% endblock %}
+
 {% block content %}
 
     {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
+        <div class="flash">Your username and password didn't match. Please try again.</div>
     {% endif %}
 
     <form method="post" action="{% url login %}">

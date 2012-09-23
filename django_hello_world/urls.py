@@ -6,7 +6,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'django_hello_world.hello.views.home', name='home'),
+    url(r'^edit/$', 'django_hello_world.hello.views.edit', name='edit'),
     url(r'^requests/$', 'django_hello_world.hello.views.requests', name='requests'),
+    url(r'^upload/$', 'django_hello_world.hello.views.upload_image', name='upload'),
     url(r'^logout/$', 'django_hello_world.hello.views.logout_view', name='logout'),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html' }, name="login"),
    # url(r'^logout/$', 'django.contrib.auth.views.logout',{'template_name': 'logout.html' }, name='logout'),

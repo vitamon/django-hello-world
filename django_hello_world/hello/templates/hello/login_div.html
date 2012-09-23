@@ -1,0 +1,8 @@
+<div class="login_form">
+    {% if is_authenticated %}
+        <div class="user_name">{{ user.username }} |
+            <a class="req_link" id="logout" href="{% url logout %}">logout</a></div>
+    {% else %}
+        <a class="req_link" id="login" href="{% url login %}">login to edit information</a>
+    {% endif %}
+</div>
