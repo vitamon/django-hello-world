@@ -1,2 +1,5 @@
 *.pyc
 *.sqlite3
+/.env
+/.idea
+/django_hello_world/static
