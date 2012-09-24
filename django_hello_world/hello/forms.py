@@ -1,8 +1,10 @@
 from django import forms
 from hello.models import UserProfile
+from hello.util.CalendarWidget import CalendarWidget
+
 
 class UserProfileForm(forms.Form):
-    birthdate = forms.DateField(widget=forms.DateInput, required=False)
+    birthdate = forms.DateField(widget=CalendarWidget, required=False)
     photo = forms.ImageField(required=False)
     jabber = forms.CharField(required=False)
     skype = forms.CharField(required=False)
@@ -15,6 +17,7 @@ class UserProfileForm(forms.Form):
 
     class Meta:
         model = UserProfile
+
 '''
     def clean(self):
         birthdate = self.cleaned_data.get('birthdate', '')

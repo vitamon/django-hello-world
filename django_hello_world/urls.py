@@ -21,6 +21,11 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 )
 
+# for callendar widget
+urlpatterns += patterns('',
+    (r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog'),
+)
+
 if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^%s(?P<path>.*)$'%settings.MEDIA_URL, 'django.views.static.serve',
