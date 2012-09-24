@@ -12,16 +12,17 @@ div {
     font-weight: normal;
 }
 
-.edit_form .column_left {
+.column_left {
     position: absolute;
     top: 80px;
     left: 0;
     width: 400px;
     padding: 10px;
     height: 110px;
+    z-index: 2000;
 }
 
-.edit_form .column_right {
+.column_right {
     position: absolute;
     top: 80px;
     left: 360px;
@@ -32,7 +33,7 @@ div {
 }
 
 
-.edit_form .column_info {
+.column_info {
     position: absolute;
     top: 220px;
     left: 360px;
@@ -134,7 +135,7 @@ div {
     cursor: auto;
     margin-top: 1px;
     margin-left: 1px;
-    z-index: 1000;
+    z-index: -500;
     padding: 0;
     border: 2px solid rgb(72, 72, 72);
 }

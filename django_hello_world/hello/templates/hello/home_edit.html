@@ -3,11 +3,35 @@
 {% block title %} Hello, 42cc! {% endblock %}
 {% block scripts %}
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/contacts.css" xmlns="http://www.w3.org/1999/html"/>
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/ui-lightness/jquery-ui-1.8.23.custom.css" xmlns="http://www.w3.org/1999/html"/>
+
     {% load adminmedia %}
+{% comment %}
     <script>
         window.__admin_media_prefix__ = "{% filter escapejs %}{% admin_media_prefix %}{% endfilter %}";
     </script>
-    {{ form.media }}
+{% endcomment %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}ui/jquery-ui-1.8.23.custom.min.js"></script>
+
+    <script type="text/javascript">
+        function search_submit() {
+            var query = $("#id_query").val();
+            $("#search_results").load(
+                    "/search/?ajax&query=" + encodeURIComponent(query)
+            );
+            return false;
+        }
+        $(document).ready(function () {
+            //$("#id_query").keyup(search_submit);
+            // $("#search_form").submit(search_submit);
+            $(function() {
+                $( "#id_birthdate" ).datepicker();
+            });
+        });
+    </script>
+
+   {% comment %} {{ form.media }}{% endcomment %}
 {% endblock %}
 
 {% block content %}

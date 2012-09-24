@@ -4,7 +4,7 @@ from hello.util.CalendarWidget import CalendarWidget
 
 
 class UserProfileForm(forms.Form):
-    birthdate = forms.DateField(widget=CalendarWidget, required=False)
+    birthdate = forms.DateField(required=False)
     photo = forms.ImageField(required=False)
     jabber = forms.CharField(required=False)
     skype = forms.CharField(required=False)
