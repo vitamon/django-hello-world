@@ -1,10 +1,7 @@
 from unittest import TestCase
 import datetime
-from django.contrib.auth.admin import UserAdmin
 from django.db import models
 from django.db.models.signals import post_save
-import settings
-
 
 class RequestsLogManager(models.Manager):
     def get_last_ten(self):
@@ -60,14 +57,15 @@ class UserProfile(models.Model):
 
     def update_from(self, data):
         self.user.first_name = data["first_name"]
-        self.user.last_name  = data["last_name"]
+        self.user.last_name = data["last_name"]
         self.user.email = data["email"]
         self.bio = data["bio"]
-        self.jabber  = data["jabber"]
+        self.jabber = data["jabber"]
         self.photo = data["photo"]
         self.birthdate = data["birthdate"]
         self.skype = data["skype"]
         self.other_contacts = data["other_contacts"]
+
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
