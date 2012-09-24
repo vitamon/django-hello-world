@@ -22,20 +22,24 @@ class HttpTest(TestCase):
 
     def test_context_processor(self):
         from context_processors import django_settings
+
         sets = django_settings({})
         assert 'settings' in sets
         import settings
+
         assert sets['settings'].ADMIN_MEDIA_PREFIX == settings.ADMIN_MEDIA_PREFIX
 
     def test_settings_content_processor(self):
         client = Client()
         response = client.get(reverse('home'))
         import settings
+
         assert settings.AUTHOR is not None
         self.assertContains(response, settings.AUTHOR)
 
-class SeleniumTests(TestCase):
 
+@skip
+class SeleniumTests(TestCase):
     def test_selenium_simple(self):
         browser = webdriver.Firefox() # Get local session of firefox
         browser.get('http://localhost:8000') # Load page
