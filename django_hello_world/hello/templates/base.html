@@ -8,6 +8,10 @@
     {% endif %}
 
     <title>{% block title %}No title{% endblock %}</title>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ae.image.resize.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/base.js"></script>
+
     {% block scripts %}{% endblock %}
 </head>
 

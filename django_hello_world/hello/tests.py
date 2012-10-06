@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 from django.test import Client
 from selenium import webdriver
 
-@skip
 class HttpTest(TestCase):
     def test_home(self):
         client = Client()

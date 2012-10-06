@@ -1,10 +1,10 @@
 from django import forms
 from hello.models import UserProfile
-from hello.util.CalendarWidget import CalendarWidget
+from hello.widgets import JQueryDateWidget
 
 
 class UserProfileForm(forms.Form):
-    birthdate = forms.DateField(required=False)
+    birthdate = forms.DateField(widget=JQueryDateWidget, required=False)
     photo = forms.ImageField(required=False)
     jabber = forms.CharField(required=False)
     skype = forms.CharField(required=False)

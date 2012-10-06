@@ -1,12 +1,9 @@
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.forms import Form
-from django.views.decorators.csrf import csrf_exempt
 import os
 from annoying.decorators import render_to
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect, render_to_response
+from django.shortcuts import redirect, render_to_response, render
 from hello.forms import  UserProfileForm
 from hello.models import RequestsLog
 from django.contrib.auth import logout
@@ -32,11 +29,13 @@ def edit(request):
     user = request.user
     profile = request.user.get_profile()
     form_saved = False
-
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES)
 
         if form.is_valid():
+            #import time
+            #time.sleep(1)
+
             photoFileName = profile.photo
 
             if request.FILES and 'photo' in request.FILES:
@@ -53,10 +52,16 @@ def edit(request):
     else:
         form = UserProfileForm(user.get_profile().as_dict())
 
-    return {'photo': user.get_profile().photo,
-            'is_authenticated': request.user.is_authenticated(),
-            'form': form,
-            'form_saved': form_saved}
+    if request.is_ajax():
+        return render_to_response('hello/photo_result.html',
+            {'photo': user.get_profile().photo,
+             'settings':settings,
+             'form_saved': form_saved})
+    else:
+        return {'photo': user.get_profile().photo,
+                'is_authenticated': request.user.is_authenticated(),
+                'form': form,
+                'form_saved': form_saved}
 
 
 @render_to('hello/requests.html')
@@ -72,6 +77,7 @@ def logout_view(request):
 
 def upload_path(filename):
     return os.path.join(settings.MEDIA_ROOT, filename)
+
 
 def handle_uploaded_file(f, filename):
     destination = open(upload_path(filename), 'wb+')
