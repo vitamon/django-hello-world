@@ -129,7 +129,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
      "django.core.context_processors.static",
      "django.contrib.messages.context_processors.messages",
      'django_hello_world.hello.context_processors.django_settings',
-)
+     "django.core.context_processors.request",
+    )
 
 INSTALLED_APPS = (
     'django.contrib.auth',

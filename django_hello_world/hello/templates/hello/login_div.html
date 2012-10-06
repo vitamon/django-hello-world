@@ -1,8 +1,9 @@
 <div class="login_form">
     {% if is_authenticated %}
-        <div class="user_name">{{ user.username }} |
+        <div class="user_name">
+            {% load edit_link %} {% edit_link request.user %} |
             <a class="req_link" id="logout" href="{% url logout %}">logout</a></div>
     {% else %}
-        <a class="req_link" id="login" href="{% url login %}">login to edit information</a>
+        <a class="req_link" id="login" href="{% url login %}">Edit</a>
     {% endif %}
 </div>
