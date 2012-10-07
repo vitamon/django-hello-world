@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response, render
 from hello.forms import  UserProfileForm
-from hello.models import RequestsLog, UserProfile
+from hello.models import RequestsLog, UserProfile, RequestsPriority
 from django.contrib.auth import logout
 from hello.util.modelUtils import unique_filename
 import settings
@@ -75,6 +75,17 @@ def edit(request):
 def requests(request):
     top_ten = RequestsLog.objects.get_last_ten()
     return {"items": top_ten}
+
+@render_to('hello/requests.html')
+def requests_up(request, id):
+    RequestsPriority.objects.update_priority(id, 1)
+    return redirect(reverse("requests"))
+
+
+@render_to('hello/requests.html')
+def requests_down(request, id):
+    RequestsPriority.objects.update_priority(id, -1)
+    return redirect(reverse("requests"))
 
 
 def logout_view(request):

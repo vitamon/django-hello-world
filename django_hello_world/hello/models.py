@@ -1,3 +1,4 @@
+import copy
 import datetime
 from django.db import models
 from django.db.models.signals import post_save, post_delete
@@ -17,15 +18,62 @@ class RequestsLogManager(models.Manager):
     def get_last_n(self, n):
         return self.order_by("-time")[:n]
 
+    def get_last_10_sorted(self):
+        sorted = []
+        for item in self.get_last_ten():
+            obj = item.as_dict()
+            obj['priority'] = RequestsPriority.objects.lookup(url=item.url)
+            sorted.append(obj)
+        print sorted
+        sorted.sort(key='priority')
+        return sorted
+
 
 class RequestsLog(models.Model):
     url = models.URLField()
     time = models.DateTimeField()
+
     objects = RequestsLogManager()
+
+    def as_dict(self):
+        return {
+            "url": self.url,
+            "time": self.time
+        }
 
     class Meta:
         db_table = 'request_log'
 
+# --------------------------------------------------------------
+#
+# RequestsPriority model
+#
+# --------------------------------------------------------------
+
+class RequestsPriorityManager(models.Manager):
+    DEFAULT_PRIORITY = 0
+
+    def lookup(self, url):
+        try:
+            item = self.get(url=url)
+            return item.priority
+        except:
+            return self.DEFAULT_PRIORITY
+
+    def update_priority(self, id, delta):
+        item, created = RequestsPriority.objects.get_or_create(url=RequestsLog.objects.get(id=id).url)
+        item.priority += delta
+        item.save()
+
+
+class RequestsPriority(models.Model):
+    url = models.URLField()
+    priority = models.SmallIntegerField(default=0)
+
+    objects = RequestsPriorityManager()
+
+    class Meta:
+        db_table = 'hello_request_priority'
 
 # --------------------------------------------------------------
 #
