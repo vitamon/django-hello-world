@@ -65,7 +65,9 @@ class RequestsLogTest(TestCase):
         RequestsLog.objects.create(url="http://yahoo.com", time=datetime.datetime.now())
         RequestsLog.objects.create(url="http://ya.com", time=datetime.datetime.now())
         RequestsLog.objects.create(url="http://bababa.com", time=datetime.datetime.now())
-        print RequestsLog.objects.get_last_10_sorted()
+        lst = RequestsLog.objects.get_last_10_sorted()
+        assert lst[0]['priority'] == 5
+        #print RequestsLog.objects.get_last_10_sorted()
 
 
 class RequestPriorityModelTest(TestCase):
@@ -83,7 +85,6 @@ class RequestPriorityModelTest(TestCase):
 #
 # --------------------------------------------------------------
 
-@skip
 class SeleniumTests(TestCase):
     def test_selenium_simple(self):
         browser = webdriver.Firefox() # Get local session of firefox

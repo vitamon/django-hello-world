@@ -8,12 +8,16 @@
 {% block content %}
     {% for item in items %}
         <ul class="req_list">
-            <span> {{ item.id }} | </span>
-            {{ item.time }} | {{ item.time|timesince }} ago <span> | </span>
-            <span class="url"> {{ item.url }}</span>
-            <span class="url"> {{ item.priority }}</span>
             <span><a href="{% url req_up item.id %}"><img src="{{ STATIC_URL }}images/up_button.png"/></a></span>
             <span><a href="{% url req_down item.id %}"><img src="{{ STATIC_URL }}images/down_button.png"/></a></span>
+            <span> | </span>
+            <span class="url"> {{ item.priority }}</span>
+            <span> | </span>
+            <span> {{ item.id }} | </span>
+            {{ item.time }} | {{ item.time|timesince }} ago <span> | </span>
+            <span class="url"> {{ item.url }}</span> <span> | </span>
+
+
         </ul>
     {% empty %}
         <div>The log is empty</div>

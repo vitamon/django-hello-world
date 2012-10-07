@@ -24,8 +24,7 @@ class RequestsLogManager(models.Manager):
             obj = item.as_dict()
             obj['priority'] = RequestsPriority.objects.lookup(url=item.url)
             sorted.append(obj)
-        print sorted
-        sorted.sort(key='priority')
+        sorted.sort(key=lambda obj: obj['priority'], reverse=True)
         return sorted
 
 
@@ -38,7 +37,8 @@ class RequestsLog(models.Model):
     def as_dict(self):
         return {
             "url": self.url,
-            "time": self.time
+            "time": self.time,
+            'id':self.id
         }
 
     class Meta:

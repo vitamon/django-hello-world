@@ -73,7 +73,7 @@ def edit(request):
 
 @render_to('hello/requests.html')
 def requests(request):
-    top_ten = RequestsLog.objects.get_last_ten()
+    top_ten = RequestsLog.objects.get_last_10_sorted()
     return {"items": top_ten}
 
 @render_to('hello/requests.html')
