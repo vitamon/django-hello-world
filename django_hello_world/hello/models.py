@@ -1,7 +1,7 @@
-import copy
 import datetime
 from django.db import models
 from django.db.models.signals import post_save, post_delete
+from django.core.cache import cache
 
 
 # --------------------------------------------------------------
@@ -9,7 +9,7 @@ from django.db.models.signals import post_save, post_delete
 # RequestsLog model
 #
 # --------------------------------------------------------------
-from django.dispatch import receiver, Signal
+from django.dispatch import receiver
 
 class RequestsLogManager(models.Manager):
     def get_last_ten(self):
@@ -38,7 +38,7 @@ class RequestsLog(models.Model):
         return {
             "url": self.url,
             "time": self.time,
-            'id':self.id
+            'id': self.id
         }
 
     class Meta:
@@ -54,16 +54,24 @@ class RequestsPriorityManager(models.Manager):
     DEFAULT_PRIORITY = 0
 
     def lookup(self, url):
+        cached_priority = cache.get(url)
+        if cached_priority is not None:
+            #print "cache hit! ", url, cached_priority
+            return cached_priority
         try:
             item = self.get(url=url)
+            cache.set(url, item.priority)
             return item.priority
         except:
+            cache.set(url, self.DEFAULT_PRIORITY)
             return self.DEFAULT_PRIORITY
+
 
     def update_priority(self, id, delta):
         item, created = RequestsPriority.objects.get_or_create(url=RequestsLog.objects.get(id=id).url)
         item.priority += delta
         item.save()
+        cache.set(item.url, item.priority)
 
 
 class RequestsPriority(models.Model):
