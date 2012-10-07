@@ -153,6 +153,16 @@ div {
     background: #FFC
 }
 
+.flash_top {
+    width: 600px;
+    text-align: center;
+    font-size: 12px;
+    display: block;
+    padding: 2px 2px 2px 2px;
+    color: black;
+    background: #FFC
+}
+
 .errorlist {
     text-align: left;
     color: red;

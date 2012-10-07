@@ -1,4 +1,3 @@
-from unittest import TestCase
 import datetime
 from django.db import models
 from django.db.models.signals import post_save, post_delete
@@ -37,7 +36,6 @@ class RequestsLog(models.Model):
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    # This field is required.
     user = models.OneToOneField(User, related_name='profile')
 
     # Other fields here
@@ -122,16 +120,5 @@ def all_deletions_logger(sender, instance, **kwargs):
     item = CreationLog(class_name=str(sender), operation=CreationLog.DELETED, time=datetime.datetime.now())
     item.save()
 
-# --------------------------------------------------------------
-#
-# Models tests
-#
-# --------------------------------------------------------------
-class ModelTest(TestCase):
-    def test_add_item(self):
-        time = datetime.datetime.now()
-        item = RequestsLog(url="test1", time=time)
-        item.save()
-        saved_item = RequestsLog.objects.get_last_n(1)[0]
-        assert saved_item.url == item.url
+
 

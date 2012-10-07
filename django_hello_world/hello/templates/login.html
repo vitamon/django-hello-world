@@ -7,7 +7,7 @@
 {% block content %}
 
     {% if form.errors %}
-        <div class="flash">Your username and password didn't match. Please try again.</div>
+        <div class="flash_top">Your username and password didn't match. Please try again.</div>
     {% endif %}
 
     <form method="post" action="{% url login %}">

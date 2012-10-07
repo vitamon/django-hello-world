@@ -23,7 +23,7 @@ def home(request):
 
     return {'user': profile.as_dict() if user else {},
             'photo':profile.photo,
-            'is_authenticated': request.user.is_authenticated(),
+            'is_authenticated': False,
     }
 
 
@@ -31,14 +31,17 @@ def home(request):
 @render_to('hello/home_edit.html')
 def edit(request):
     user = request.user
-    profile = request.user.get_profile()
+    profile = user.get_profile()
     form_saved = False
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES)
 
         if form.is_valid():
-            #import time
-            #time.sleep(1)
+
+            # slow down a bit to check progress etc
+            if settings.DEBUG:
+                import time
+                time.sleep(1)
 
             photoFileName = profile.photo
 

@@ -1,8 +1,11 @@
-from unittest import skip
+import os
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test import Client
+from hello.models import RequestsLog
 from selenium import webdriver
+from context_processors import django_settings
+import settings
 
 class HttpTest(TestCase):
     def test_home(self):
@@ -21,24 +24,44 @@ class HttpTest(TestCase):
         self.assertContains(response, 'Top 10 requests')
 
     def test_context_processor(self):
-        from context_processors import django_settings
-
         sets = django_settings({})
         assert 'settings' in sets
-        import settings
-
         assert sets['settings'].ADMIN_MEDIA_PREFIX == settings.ADMIN_MEDIA_PREFIX
 
     def test_settings_content_processor(self):
+        """
+        check if author metadata is filled in the template from settings
+        """
         client = Client()
         response = client.get(reverse('home'))
-        import settings
-
         assert settings.AUTHOR is not None
         self.assertContains(response, settings.AUTHOR)
 
+# --------------------------------------------------------------
+#
+# Models tests
+#
+# --------------------------------------------------------------
+class ModelTest(TestCase):
+    def test_add_item(self):
+        """
+        test middleware to save requests in RequestsLog
+        """
+        client = Client()
+        try:
+            response = client.get(os.path.join(reverse('home'), "blabla"))
+        except:
+            pass
+        last_req_item = RequestsLog.objects.get_last_n(1)[0]
+        assert "blabla" in last_req_item.url
 
-@skip
+
+# --------------------------------------------------------------
+#
+# Selenium tests
+#
+# --------------------------------------------------------------
+
 class SeleniumTests(TestCase):
     def test_selenium_simple(self):
         browser = webdriver.Firefox() # Get local session of firefox
@@ -61,11 +84,13 @@ class SeleniumTests(TestCase):
 
     def test_login(self):
         """
+        logout, press Edit, check we are on login page
         """
         browser = webdriver.Firefox()
         browser.get('http://localhost:8000/logout')
-        assert 'login' in browser.page_source
+        assert 'Edit' in browser.page_source
         browser.find_element_by_id("login").click()
         browser.implicitly_wait(500)
         self.assertRegexpMatches(browser.current_url, r'login/$')
+        browser.find_element_by_id()
         browser.close()
