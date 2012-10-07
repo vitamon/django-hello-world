@@ -115,5 +115,4 @@ class SeleniumTests(TestCase):
         browser.find_element_by_id("login").click()
         browser.implicitly_wait(500)
         self.assertRegexpMatches(browser.current_url, r'login/$')
-        browser.find_element_by_id()
         browser.close()
