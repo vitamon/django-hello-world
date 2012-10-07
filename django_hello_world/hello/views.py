@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response, render
 from hello.forms import  UserProfileForm
-from hello.models import RequestsLog
+from hello.models import RequestsLog, UserProfile
 from django.contrib.auth import logout
 from hello.util.modelUtils import unique_filename
 import settings
@@ -17,8 +17,12 @@ def home(request):
     else:
         user = User.objects.all()[0]
 
-    return {'user': user.get_profile().as_dict() if user else {},
-            'photo': user.get_profile().photo,
+    profile, created = UserProfile.objects.get_or_create(user=user)
+    if created:
+        profile.save()
+
+    return {'user': profile.as_dict() if user else {},
+            'photo':profile.photo,
             'is_authenticated': request.user.is_authenticated(),
     }
 

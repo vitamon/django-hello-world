@@ -1,7 +1,15 @@
 from unittest import TestCase
 import datetime
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
+
+
+# --------------------------------------------------------------
+#
+# RequestsLog model
+#
+# --------------------------------------------------------------
+from django.dispatch import receiver, Signal
 
 class RequestsLogManager(models.Manager):
     def get_last_ten(self):
@@ -33,13 +41,13 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
 
     # Other fields here
-    birthdate = models.DateField(blank=True, default=None, null=True)
-    photo = models.ImageField(upload_to="photos/", default=None, null=True)
+    birthdate = models.DateField(blank=True, null=True)
+    photo = models.ImageField(upload_to="photos/", blank=True, null=True)
 
-    jabber = models.CharField(max_length=20, default="", null=True)
-    skype = models.CharField(max_length=20, default="", null=True)
-    other_contacts = models.CharField(max_length=250, default="", null=True)
-    bio = models.CharField(max_length=300, default="", null=True)
+    jabber = models.CharField(max_length=20, blank=True, null=True)
+    skype = models.CharField(max_length=20, blank=True, null=True)
+    other_contacts = models.CharField(max_length=250, blank=True, null=True)
+    bio = models.CharField(max_length=300, blank=True, null=True)
 
     def as_dict(self):
         return {
@@ -67,11 +75,52 @@ class UserProfile(models.Model):
         self.other_contacts = data["other_contacts"]
 
 
+@receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        UserProfile.objects.create(user=instance)
+        profile, profile_created = UserProfile.objects.get_or_create(user=instance)
+        if profile_created:
+            profile.save()
 
-post_save.connect(create_user_profile, sender=User)
+# --------------------------------------------------------------
+#
+# Creation log model
+#
+# --------------------------------------------------------------
+
+class CreationLog(models.Model):
+    DELETED = 'DEL'
+    ADDED = 'ADD'
+    UPDATED = 'UPD'
+    OPERATIONS = (
+        (DELETED, 'Deleted'),
+        (ADDED, 'Added'),
+        (UPDATED, 'Updated'),
+        )
+    class_name = models.CharField(max_length=256, blank=False)
+    operation = models.CharField(max_length=3,
+        choices=OPERATIONS,
+        default=ADDED)
+    time = models.DateTimeField()
+
+    class Meta:
+        db_table = 'creation_log'
+
+
+@receiver(post_save, sender=None)
+def all_creations_logger(sender, instance, created, **kwargs):
+    if not (type(instance) is CreationLog):
+        #print "save", sender, created
+        item = CreationLog(class_name=str(sender), operation=CreationLog.ADDED if created else CreationLog.UPDATED,
+            time=datetime.datetime.now())
+        item.save()
+
+
+@receiver(post_delete, sender=None)
+def all_deletions_logger(sender, instance, **kwargs):
+    #print "del", sender
+    item = CreationLog(class_name=str(sender), operation=CreationLog.DELETED, time=datetime.datetime.now())
+    item.save()
 
 # --------------------------------------------------------------
 #
