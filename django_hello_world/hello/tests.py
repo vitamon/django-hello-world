@@ -84,7 +84,7 @@ class RequestPriorityModelTest(TestCase):
 # Selenium tests
 #
 # --------------------------------------------------------------
-
+@skip
 class SeleniumTests(TestCase):
     def test_selenium_simple(self):
         browser = webdriver.Firefox() # Get local session of firefox
