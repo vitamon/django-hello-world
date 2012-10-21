@@ -3,89 +3,59 @@
 {% block title %} Hello, 42cc! {% endblock %}
 {% block scripts %}
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/contacts.css"/>
-    <script type="text/javascript">
-        $(function () {
-            setImageSize()
-        });
-
-        function setImageSize() {
-            $(".proportional").aeImageResize({ height:390, width:295 });
-        }
-    </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/hello.js"></script>
 {% endblock %}
 
 {% block content %}
-    <div class="title">42 Coffee Cups Test Assignment</div>
 
-    {% include 'hello/login_div.html' %}
-    <div>
-        <table class="column_left">
-            <tr>
-                <td class="form_label">Name  </td>
-                <td class="field_text">{{ user.first_name }}</td>
-            </tr>
+    {% include 'hello/title_div.html' %}
 
-            <tr>
-                <td class="form_label">Last name</td>
-                <td class="field_text">{{ user.last_name }}</td>
-            </tr>
+    <div class="row-fluid">
+        <div class="span5">
+            <dl class="dl-horizontal">
+                <dt>Name</dt>
+                <dd>{{ profile.user.first_name }}</dd>
 
-            <tr>
-                <td class="form_label">Date of birth</td>
-                <td class="field_text">{{ user.birthdate }}</td>
-            </tr>
+                <dt>Last name</dt>
+                <dd>{{ profile.user.last_name }}</dd>
 
-            <tr>
-                <td class="form_label">Photo:</td>
-                <td class="field_text"></td>
-            </tr>
+                <dt>Date of birth</dt>
+                <dd>{{ profile.birthdate }}</dd>
 
-        </table>
-
-        <div id="image" class="photo">
-            {% if photo %}
-                <img id="photo" class="proportional" src="/{{ settings.MEDIA_URL }}{{ photo }}" width="100%" height="100%">
+                <dt>Photo:</dt>
+                <dd>
+                </dd>
+            </dl>
+            {% if profile.photo %}
+                <img id="photo" class="proportional" src="/{{ settings.MEDIA_URL }}{{ profile.photo }}">
             {% else %}
-                <img src="{{ STATIC_URL }}images/non_avatar_big.png" width="100%" height="100%">
+                <img src="{{ STATIC_URL }}images/non_avatar_big.png">
             {% endif %}
-
         </div>
 
-        <table class="column_right">
-            <tr>
-                <td class="form_label">Contacts</td>
-            </tr>
+        <div class="span5 offset1 float-right">
+            <h5>Contacts</h5>
 
-            <tr>
-                <td class="form_label">Email:</td>
-                <td class="field_text">{{ user.email }}</td>
-            </tr>
+            <dl class="dl-horizontal">
 
-            <tr>
-                <td class="form_label">Jabber:</td>
-                <td class="field_text">{{ user.jabber }}</td>
-            </tr>
+                <dt>Email:</dt>
+                <dd>{{ profile.user.email }}</dd>
 
-            <tr>
-                <td class="form_label">Skype:</td>
-                <td class="field_text">{{ user.skype }}</td>
-            </tr>
-        </table>
+                <dt>Jabber:</dt>
+                <dd>{{ profile.jabber }}</dd>
 
-        <table class="column_info">
-            <tr>
-                <td class="form_label">Other contacts:</td>
-                <td class="field_text">{{ user.other_contacts }}</td>
-            </tr>
+                <dt>Skype:</dt>
+                <dd>{{ profile.skype }}</dd>
 
-            <tr>
-                <td class="form_label">Bio:</td>
-                <td class="field_text">{{ user.bio }}</td>
-            </tr>
-        </table>
+                <dt>Other contacts:</dt>
+                <dd>{{ profile.other_contacts }}</dd>
+
+                <dt>Bio:</dt>
+                <dd>{{ profile.bio }}</dd>
+            </dl>
+
+        </div>
     </div>
-
     {% include 'hello/req_footer.html' %}
-
 
 {% endblock content %}

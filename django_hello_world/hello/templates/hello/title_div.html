@@ -1,0 +1,13 @@
+
+<div class="row-fluid">
+    <span class="span9"><h3>42 Coffee Cups Test Assignment</h3></span>
+    <span class="span3 float-right">
+    <p></p>
+    {% if is_authenticated %}
+        {% load edit_link %} {% edit_link request.user %} |
+        <a class="btn btn-small" id="logout" href="{% url logout %}">logout</a>
+    {% else %}
+        <a class="btn btn-small" id="login" href="{% url login %}">Edit</a>
+    {% endif %}
+    </span>
+</div>

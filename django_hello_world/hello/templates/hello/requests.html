@@ -6,20 +6,22 @@
 {% endblock %}
 
 {% block content %}
-    {% for item in items %}
-        <ul class="req_list">
-            <span><a href="{% url req_up item.id %}"><img src="{{ STATIC_URL }}images/up_button.png"/></a></span>
-            <span><a href="{% url req_down item.id %}"><img src="{{ STATIC_URL }}images/down_button.png"/></a></span>
-            <span> | </span>
-            <span class="url"> {{ item.priority }}</span>
-            <span> | </span>
-            <span> {{ item.id }} | </span>
-            {{ item.time }} | {{ item.time|timesince }} ago <span> | </span>
-            <span class="url"> {{ item.url }}</span> <span> | </span>
+    <p class="row-fluid">
+    <table class="table table-bordered table-striped table-hover">
+        {% for item in items %}
+            <tr>
+                <td>
+                    <span><a href="{% url req_up item.id %}"><i class="icon-plus-sign"></i></a></span>
+                    <span><a href="{% url req_down item.id %}"><i class="icon-minus-sign"></i></a></span>
+                    <strong> {{ item.priority }}</strong>
+                    <strong class="text-success"> {{ item.url }}</strong>
 
-
-        </ul>
-    {% empty %}
-        <div>The log is empty</div>
-    {% endfor %}
+                    <span class="text-info"> {{ item.id }}</span>
+                    {{ item.time }} | {{ item.time|timesince }} ago
+                </td>
+            </tr>
+        {% empty %}
+            The log is empty
+        {% endfor %}
+    </table>
 {% endblock content %}

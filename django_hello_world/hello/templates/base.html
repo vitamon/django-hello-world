@@ -7,20 +7,27 @@
         <meta name="author" content="{{ settings.AUTHOR }}"/>
     {% endif %}
 
-    <title>{% block title %}No title{% endblock %}</title>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.1.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ae.image.resize.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/base.js"></script>
+    <title>
+        {% block title %}No title{% endblock %}
+    </title>
+    {% block css %}
+    {% endblock css %}
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 
-    {% block scripts %}{% endblock %}
 </head>
 
 <body>
+{% block scripts %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/base.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+{% endblock %}
 
-{% block body %}
+<div class="container-fluid">
     {% block content %}
 
     {% endblock content %}
-{% endblock body %}
+</div>
 </body>
 </html>
