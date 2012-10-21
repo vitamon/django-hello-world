@@ -2,140 +2,95 @@
 
 {% block title %} Hello, 42cc! {% endblock %}
 {% block scripts %}
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/contacts.css" xmlns="http://www.w3.org/1999/html"/>
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/contacts.css" xmlns="http://www.w3.org/1999/html"
+          xmlns="http://www.w3.org/1999/html"/>
 
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.form.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/hello_edit.js"></script>
 
     {{ form.media }}
-
-    <script type="text/javascript">
-        $(function() {
-            setImageSize()
-        });
-
-        function setImageSize() {
-            $(".proportional").aeImageResize({ height: 320, width: 235 });
-        }
-        function preSubmitCallback() {
-            $("#editForm").find('input, textarea, button, select').attr('disabled', 'disabled');
-            $("#progress").attr('hidden', false);
-            log('pre-submit');
-        }
-
-        function postSubmitCallback() {
-            $("#editForm").find('input, textarea, button, select').removeAttr('disabled');
-            $("#progress").attr('hidden', true);
-            setImageSize();
-            log("posted");
-        }
-
-        $(document).ready(function () {
-
-            var options = {
-                target:'#image', // target element(s) to be updated with server response
-                replaceTarget:true,
-                beforeSubmit:preSubmitCallback, // pre-submit callback
-                success:postSubmitCallback  // post-submit callback
-                //timeout:   3000
-            };
-
-            $('#editForm').submit(
-                    function () {
-                        $(this).ajaxSubmit(options);
-                        log('submit');
-                        return false;
-                    }
-            );
-        });
-    </script>
-
 {% endblock %}
 
 {% block content %}
 
-    <div class="title">42 Coffee Cups Test Assignment (Edit mode)</div>
+    {% include 'hello/title_div.html' %}
 
-    {% include 'hello/login_div.html' %}
+    <form id="editForm" class="edit_form form-horizontal" enctype="multipart/form-data" action="{% url edit %}"
+          method="post"> {% csrf_token %}
+        <div class="row-fluid">
+            <div class="span5">
+                <div class="control-group">
+                    <label class="control-label">Name</label>
 
-    <div>
-        <form id="editForm" class="edit_form" enctype="multipart/form-data" action="{% url edit %}"
-              method="post"> {% csrf_token %}
-
-            <table class="column_left">
-                <tr>
-                    <td class="form_label">Name</td>
-                    <td class="field_text">{{ form.first_name }}
+                    <div class="controls">{{ form.first_name }}
                         {% if form.first_name.errors %} <span class="errorlist">*</span> {% endif %}
-                    </td>
-                </tr>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Last name</label>
 
-                <tr>
-                    <td class="form_label">Last name</td>
-                    <td class="field_text">{{ form.last_name }}
+                    <div class="controls">{{ form.last_name }}
                         {% if form.last_name.errors %} <span class="errorlist">*</span> {% endif %}
-                    </td>
-                </tr>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Date of birth</label>
 
-                <tr>
-                    <td class="form_label">Date of birth</td>
-                    <td class="field_text">{{ form.birthdate }}
+                    <div class="controls">{{ form.birthdate }}
                         {% if form.birthdate.errors %} <span class="errorlist">*</span> {% endif %}
-                    </td>
-                </tr>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Photo:</label>
 
-                <tr>
-                    <td class="form_label">Photo:</td>
-                    <td class="field_text"> {{ form.photo }}</td>
-                </tr>
+                    <div class="controls">{{ form.photo }}</div>
+                </div>
 
-            </table>
-
-            {% include "hello/photo_result.html" %}
-
-            <table class="column_right">
-                <tr>
-                    <td class="form_label">Contacts</td>
-                </tr>
-
-                <tr>
-                    <td class="form_label">Email:</td>
-                    <td class="field_text">{{ form.email }} {% if form.email.errors %}
-                        <span class="errorlist">*</span> {% endif %}
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="form_label">Jabber:</td>
-                    <td class="field_text">{{ form.jabber }}</td>
-                </tr>
-
-                <tr>
-                    <td class="form_label">Skype:</td>
-                    <td class="field_text">{{ form.skype }}</td>
-                </tr>
-            </table>
-
-            <table class="column_info">
-                <tr>
-                    <td class="form_label">Other contacts:
-                        <p class="field_text">{{ form.other_contacts }}</p>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="form_label">Bio:
-                        <p class="field_text">{{ form.bio }}</p>
-                    </td>
-                </tr>
-            </table>
-            <div id="buttons">
-                <input id="savebtn" type="submit" value="Save"/>
-                <span id="progress" hidden="false"> <img src="{{ STATIC_URL }}images/ajax-loader.gif"></span>
-                <a href="{% url edit %}" id="cancelbtn">cancel</a>
+                {% include "hello/photo_result.html" %}
             </div>
-        </form>
 
-    </div>
+            <div class="span5 offset1 float-right">
+                <h5>Contacts</h5>
+
+                <div class="control-group">
+                    <label class="control-label">Email:</label>
+
+                    <div class="controls">{{ form.email }} {% if form.email.errors %}
+                        <span class="errorlist">*</span> {% endif %}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Jabber:</label>
+
+                    <div class="controls">{{ form.jabber }}</div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Skype:</label>
+
+                    <div class="controls">{{ form.skype }}</div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Other<br>contacts:</label>
+
+                    <div class="controls">{{ form.other_contacts }}</div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Bio:</label>
+
+                    <div class="controls">{{ form.bio }}</div>
+                </div>
+            </div>
+            <div class="span12">
+            <button id="savebtn" type="submit" class="btn">Save</button>
+            <span id="progress" hidden="false"> <img src="{{ STATIC_URL }}images/ajax-loader.gif"></span>
+            <a href="{% url edit %}" id="cancelbtn">cancel</a>
+            </div>
+        </div>
+    </form>
 
     {% include 'hello/req_footer.html' %}
 

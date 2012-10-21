@@ -10,18 +10,19 @@ from django.core.cache import cache
 #
 # --------------------------------------------------------------
 from django.dispatch import receiver
+from django.forms import model_to_dict
 
 class RequestsLogManager(models.Manager):
     def get_last_ten(self):
         return self.get_last_n(10)
 
     def get_last_n(self, n):
-        return self.order_by("-time")[:n]
+        return list(self.order_by("-time")[:n])
 
     def get_last_10_sorted(self):
         sorted = []
         for item in self.get_last_ten():
-            obj = item.as_dict()
+            obj = model_to_dict(item)
             obj['priority'] = RequestsPriority.objects.lookup(url=item.url)
             sorted.append(obj)
         sorted.sort(key=lambda obj: obj['priority'], reverse=True)
@@ -33,13 +34,6 @@ class RequestsLog(models.Model):
     time = models.DateTimeField()
 
     objects = RequestsLogManager()
-
-    def as_dict(self):
-        return {
-            "url": self.url,
-            "time": self.time,
-            'id': self.id
-        }
 
     class Meta:
         db_table = 'request_log'
@@ -94,47 +88,21 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
 
-    # Other fields here
     birthdate = models.DateField(blank=True, null=True)
     photo = models.ImageField(upload_to="photos/", blank=True, null=True)
-
     jabber = models.CharField(max_length=20, blank=True, null=True)
     skype = models.CharField(max_length=20, blank=True, null=True)
     other_contacts = models.CharField(max_length=250, blank=True, null=True)
     bio = models.CharField(max_length=300, blank=True, null=True)
 
-    def as_dict(self):
-        return {
-            "username": self.user.username,
-            "first_name": self.user.first_name,
-            "last_name": self.user.last_name,
-            "email": self.user.email,
-            "bio": self.bio,
-            "jabber": self.jabber,
-            "photo": self.photo,
-            "birthdate": self.birthdate,
-            "skype": self.skype,
-            "other_contacts": self.other_contacts
-        }
-
-    def update_from(self, data):
-        self.user.first_name = data["first_name"]
-        self.user.last_name = data["last_name"]
-        self.user.email = data["email"]
-        self.bio = data["bio"]
-        self.jabber = data["jabber"]
-        self.photo = data["photo"]
-        self.birthdate = data["birthdate"]
-        self.skype = data["skype"]
-        self.other_contacts = data["other_contacts"]
-
-
+"""
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         profile, profile_created = UserProfile.objects.get_or_create(user=instance)
         if profile_created:
             profile.save()
+"""
 
 # --------------------------------------------------------------
 #

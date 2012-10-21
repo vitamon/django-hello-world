@@ -1,11 +1,11 @@
-div {
+/*div {
     font-family: Georgia, serif;
     font-size: 14px;
     color: black;
     padding: 10px;
     font-weight: lighter;
     vertical-align: middle;
-}
+}*/
 
 .title {
     font-size: 22px;
@@ -96,7 +96,7 @@ div {
     color: rgb(1, 1, 8);
 }
 
-.login_form {
+/*.login_form {
     top: 30px;
     left: 575px;
     width: 150px;
@@ -108,7 +108,7 @@ div {
     margin-top: 1px;
     margin-left: 1px;
     z-index: 1000;
-}
+}*/
 
 .photo_edit {
     padding: 0;

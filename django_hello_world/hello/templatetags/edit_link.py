@@ -1,5 +1,5 @@
 from django import template
-from hello.util.modelUtils import admin_page_url
+from hello.util.utils import admin_page_url
 
 register = template.Library()
 
