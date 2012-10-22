@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-{% block title %} Hello, 42cc! {% endblock %}
 {% block css %}
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/contacts.css" xmlns="http://www.w3.org/1999/html"
           xmlns="http://www.w3.org/1999/html"/>
@@ -19,82 +18,86 @@
 
     <form id="editForm" class="edit_form form-horizontal" enctype="multipart/form-data" action="{% url edit %}"
           method="post"> {% csrf_token %}
-            <div class="row-fluid">
-                <div class="span6">
-                    <legend>User info</legend>
-                    <div class="control-group">
-                        <label class="control-label span3">Name</label>
-
-                        <div class="controls span3">{{ form.first_name }}
-                            {% if form.first_name.errors %} <span class="errorlist">*</span> {% endif %}
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label span3">Last name</label>
-
-                        <div class="controls span3">{{ form.last_name }}
-                            {% if form.last_name.errors %} <span class="errorlist">*</span> {% endif %}
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label span3">Date of birth</label>
-
-                        <div class="controls span3   input-append date">{{ form.birthdate }}
-                            {% if form.birthdate.errors %} <span class="errorlist">*</span> {% endif %}
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label span3">Photo:</label>
-
-                        <div class="controls span3">{{ form.photo }}</div>
-                    </div>
-
-                    {% include "hello/photo_result.html" %}
-                </div>
-
-                <div class="span6 float-right">
-                    <legend>Contacts</legend>
-
-                    <div class="control-group">
-                        <label class="control-label span3">Email:</label>
-
-                        <div class="controls span3">{{ form.email }} {% if form.email.errors %}
-                            <span class="errorlist">*</span> {% endif %}
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label span3">Jabber:</label>
-
-                        <div class="controls span3">{{ form.jabber }}</div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label span3">Skype:</label>
-
-                        <div class="controls span3">{{ form.skype }}</div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label span3">Other<br>contacts:</label>
-
-                        <div class="controls span3">{{ form.other_contacts }}</div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label span3">Bio:</label>
-
-                        <div class="controls span3">{{ form.bio }}</div>
+        <div class="row">
+            <div class="span5">
+                <legend>User info</legend>
+                <div class="row">
+                    <div class="span2">Name</div>
+                    <div class="span2">{{ form.first_name }}
+                        {% if form.first_name.errors %} <span class="errorlist">*</span> {% endif %}
                     </div>
                 </div>
-                <br>
+                <div class="row spacer15"></div>
+                <div class="row">
+                    <div class="span2">Last name</div>
+                    <div class="span2">{{ form.last_name }}
+                        {% if form.last_name.errors %} <span class="errorlist">*</span> {% endif %}
+                    </div>
+                </div>
+                <div class="row spacer15"></div>
 
-                <div class="span12">
-                    <button id="savebtn" type="submit" class="btn">Save</button>
-                    <span id="progress" hidden="false"> <img src="{{ STATIC_URL }}images/ajax-loader.gif"></span>
-                    <a href="{% url edit %}" id="cancelbtn">cancel</a>
+                <div class="row">
+                    <div class="span2">Date<br>of birth</div>
+                    <div class="span2">{{ form.birthdate }}
+                        {% if form.birthdate.errors %} <span class="errorlist">*</span> {% endif %}
+                    </div>
+                </div>
+                <div class="row spacer15"></div>
+
+                <div class="row">
+                    <div class="span2">Photo:</div>
+                    <div class="span2">{{ form.photo }}</div>
+                </div>
+                <div class="row spacer15"></div>
+
+                {% include "hello/photo_result.html" %}
+            </div>
+
+            <div class="span5 offset1 float-right">
+                <legend>Contacts</legend>
+
+                <div class="row">
+                    <div class="span1">Email:</div>
+
+                    <div class="span2">{{ form.email }} {% if form.email.errors %}
+                        <span class="errorlist">*</span> {% endif %}
+                    </div>
+                </div>
+                <div class="row spacer15"></div>
+
+
+                <div class="row">
+                    <div class="span1">Jabber:</div>
+                    <div class="span2">{{ form.jabber }}</div>
+                </div>
+                <div class="row spacer15"></div>
+
+
+                <div class="row">
+                    <div class="span1">Skype:</div>
+                    <div class="span2">{{ form.skype }}</div>
+                </div>
+                <div class="row spacer15"></div>
+
+                <div class="row">
+                    <div class="span1">Other<br>contacts:</div>
+                    <div class="span2">{{ form.other_contacts }}</div>
+                </div>
+                <div class="row spacer15"></div>
+
+                <div class="row">
+                    <div class="span1">Bio:</div>
+                    <div class="span2">{{ form.bio }}</div>
                 </div>
             </div>
+            <br>
+
+            <div class="span12">
+                <button id="savebtn" type="submit" class="btn">Save</button>
+                <span id="progress" hidden="false"> <img src="{{ STATIC_URL }}images/ajax-loader.gif"></span>
+                <a href="{% url edit %}" id="cancelbtn">cancel</a>
+            </div>
+        </div>
     </form>
 
 

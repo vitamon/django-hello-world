@@ -1,7 +1,8 @@
+<br>
 {% if profile.photo %}
-    <img id="photo" class="span10" src="/{{ settings.MEDIA_URL }}{{ profile.photo }}">
+    <img id="photo" class="span4" src="/{{ settings.MEDIA_URL }}{{ profile.photo }}">
 {% else %}
-    <img class="span10" src="{{ STATIC_URL }}images/non_avatar_big.png">
+    <img class="span4" src="{{ STATIC_URL }}images/non_avatar_big.png">
 {% endif %}
 {% if form_saved %}
     <span class="flash">Changes have been saved!</span>
