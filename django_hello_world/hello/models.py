@@ -95,14 +95,18 @@ class UserProfile(models.Model):
     other_contacts = models.CharField(max_length=250, blank=True, null=True)
     bio = models.CharField(max_length=300, blank=True, null=True)
 
-"""
+    @staticmethod
+    def ensure_profile_for(user):
+        profile, created = UserProfile.objects.get_or_create(user=user)
+        if created:
+            profile.save()
+        return profile
+
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        profile, profile_created = UserProfile.objects.get_or_create(user=instance)
-        if profile_created:
-            profile.save()
-"""
+        UserProfile.ensure_profile_for(instance)
 
 # --------------------------------------------------------------
 #

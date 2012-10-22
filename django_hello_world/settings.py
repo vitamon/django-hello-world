@@ -144,7 +144,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.webdesign',
@@ -153,7 +153,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'django_hello_world.hello',
-    'south'
+    #'south'
 )
 
 SOUTH_TESTS_MIGRATE = False # To disable migrations and use syncdb instead

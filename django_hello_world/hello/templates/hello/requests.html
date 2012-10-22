@@ -6,22 +6,45 @@
 {% endblock %}
 
 {% block content %}
-    <p class="row-fluid">
-    <table class="table table-bordered table-striped table-hover">
-        {% for item in items %}
-            <tr>
-                <td>
-                    <span><a href="{% url req_up item.id %}"><i class="icon-plus-sign"></i></a></span>
-                    <span><a href="{% url req_down item.id %}"><i class="icon-minus-sign"></i></a></span>
-                    <strong> {{ item.priority }}</strong>
-                    <strong class="text-success"> {{ item.url }}</strong>
-
-                    <span class="text-info"> {{ item.id }}</span>
-                    {{ item.time }} | {{ item.time|timesince }} ago
-                </td>
-            </tr>
-        {% empty %}
-            The log is empty
-        {% endfor %}
-    </table>
+    <div class="row-fluid">
+        <br/>
+        <legend>Last 10 requests</legend>
+        <table class="table table-hover table-bordered table-striped">
+            <th>
+            </th>
+            <th>
+                Priority
+            </th>
+            <th>
+                Request
+            </th>
+            <th>
+                id
+            </th>
+            <th>
+                date
+            </th>
+            <th>
+                time
+            </th>
+            {% for item in items %}
+                <tr>
+                    <td class="span2 centered">
+                        <a href="{% url req_up item.id %}"><i class="icon-plus-sign"></i></a>
+                        <a href="{% url req_down item.id %}"><i class="icon-minus-sign"></i></a>
+                    </td>
+                    <td class="span1">
+                        <strong> {{ item.priority }}</strong>
+                    </td>
+                    <td class="span2"><strong class="text-success"> {{ item.url }}</strong></td>
+                    <td class="text-info span1"> {{ item.id }}</td>
+                    <td>{{ item.time }} </td>
+                    <td>{{ item.time|timesince }} ago</td>
+                </tr>
+            {% empty %}
+                <span class="text-info">The log is empty</span>
+            {% endfor %}
+        </table>
+    </div>
+    <a href="{%  url home %}"><button class="btn">Back</button></a>
 {% endblock content %}

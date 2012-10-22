@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(".vDateField").datepicker({
-        dateFormat:"yy-mm-dd",
-        changeMonth:true,
-        changeYear:true
+        format:"yy-mm-dd",
+        weekStart:0,
+        viewMode:'years'
     });
 });

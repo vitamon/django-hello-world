@@ -1,17 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %} Hello, 42cc! {% endblock %}
-{% block scripts %}
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/contacts.css"/>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/hello.js"></script>
-{% endblock %}
-
 {% block content %}
 
     {% include 'hello/title_div.html' %}
 
     <div class="row-fluid">
         <div class="span5">
+            <legend>User</legend>
+
             <dl class="dl-horizontal">
                 <dt>Name</dt>
                 <dd>{{ profile.user.first_name }}</dd>
@@ -34,7 +30,7 @@
         </div>
 
         <div class="span5 offset1 float-right">
-            <h5>Contacts</h5>
+            <legend>Contacts</legend>
 
             <dl class="dl-horizontal">
 

@@ -10,9 +10,9 @@ class EditLinkNode(template.Node):
     def render(self, context):
         try:
             item = self.anything.resolve(context)
-            return '<a href="%s">Edit %s</a>' % (admin_page_url(item), item)
+            return '<a href="%s" class="btn btn-link">Edit %s</a>' % (admin_page_url(item), item)
         except:
-            return '---'
+            pass
 
 
 @register.tag

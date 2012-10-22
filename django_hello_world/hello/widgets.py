@@ -7,13 +7,14 @@ from django import forms
 from django.conf import settings
 
 
-class JQueryDateWidget(forms.DateInput):
+class BootstrapDateWidget(forms.DateInput):
     class Media:
-        js = (settings.STATIC_URL+'js/ui/jquery-ui-1.8.23.custom.min.js',
+        js = (settings.STATIC_URL+'datepicker/js/bootstrap-datepicker.js',
               settings.STATIC_URL+'js/initCallendarWidget.js')
         css = {
-            'all': (settings.STATIC_URL + 'css/ui-lightness/jquery-ui-1.8.23.custom.css',)
+            'all': (settings.STATIC_URL + 'datepicker/css/datepicker.css',
+                    settings.STATIC_URL + 'datepicker/less/datepicker.less',)
         }
 
     def __init__(self, attrs={}, format=None):
-        super(JQueryDateWidget, self).__init__(attrs={'class': 'vDateField', 'size': '10'}, format=format)
+        super(BootstrapDateWidget, self).__init__(attrs={'class': 'vDateField', 'size': '10'}, format=format)

@@ -1,4 +1,3 @@
-import os
 from annoying.decorators import render_to
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -16,11 +15,10 @@ import time
 def home(request):
     if request.user.is_authenticated():
         return redirect(reverse("edit"))
-
     user = User.objects.all()[0]
-    return {'profile': user.get_profile() if user else {},
-            'is_authenticated': False,
-    }
+
+    return {'profile': UserProfile.ensure_profile_for(user),
+            'is_authenticated': False}
 
 
 @login_required
@@ -51,7 +49,7 @@ def edit(request):
 
     if request.is_ajax():
         return render_to_response('hello/photo_result.html',
-            { 'profile': profile,
+            {'profile': profile,
              'settings': settings,
              'form_saved': form_saved})
     else:
@@ -63,17 +61,14 @@ def edit(request):
 
 @render_to('hello/requests.html')
 def requests(request):
-    top_ten = RequestsLog.objects.get_last_10_sorted()
-    return {"items": top_ten}
+    return {"items": RequestsLog.objects.get_last_10_sorted()}
 
 
-@render_to('hello/requests.html')
 def requests_up(request, id):
     RequestsPriority.objects.update_priority(id, 1)
     return redirect(reverse("requests"))
 
 
-@render_to('hello/requests.html')
 def requests_down(request, id):
     RequestsPriority.objects.update_priority(id, -1)
     return redirect(reverse("requests"))

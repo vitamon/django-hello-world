@@ -1,11 +1,11 @@
 from django import forms
 from django.forms import model_to_dict
 from hello.models import UserProfile
-from hello.widgets import JQueryDateWidget
+from hello.widgets import BootstrapDateWidget
 
 
 class UserProfileForm(forms.ModelForm):
-    birthdate = forms.DateField(widget=JQueryDateWidget, required=False)
+    birthdate = forms.DateField(widget=BootstrapDateWidget, required=False)
     photo = forms.ImageField(required=False)
     jabber = forms.CharField(required=False)
     skype = forms.CharField(required=False)
@@ -13,9 +13,9 @@ class UserProfileForm(forms.ModelForm):
     bio = forms.CharField(widget=forms.Textarea, required=False)
 
     # User's
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField()
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+    email = forms.EmailField(required=False)
 
     def __init__(self, *args, **kw):
         super(UserProfileForm, self).__init__(*args, **kw)
