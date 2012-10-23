@@ -1,10 +1,7 @@
-import datetime
 from django.utils.unittest.case import skip
-import os
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.test import Client
-from hello.models import RequestsLog, RequestsPriority
 from selenium import webdriver
 from context_processors import django_settings
 import settings
@@ -15,15 +12,6 @@ class HttpTest(TestCase):
         response = client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, '42 Coffee Cups Test Assignment')
-
-    def test_requests(self):
-        """
-        test requests page
-        """
-        client = Client()
-        response = client.get(reverse('requests'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Top 10 requests')
 
     def test_context_processor(self):
         sets = django_settings({})
@@ -38,46 +26,6 @@ class HttpTest(TestCase):
         response = client.get(reverse('home'))
         assert settings.AUTHOR is not None
         self.assertContains(response, settings.AUTHOR)
-
-# --------------------------------------------------------------
-#
-# Models tests
-#
-# --------------------------------------------------------------
-class RequestsLogTest(TestCase):
-    def test_add_item(self):
-        """
-        test middleware to save requests in RequestsLog
-        """
-        client = Client()
-        try:
-            response = client.get(os.path.join(reverse('home'), "blabla"))
-        except:
-            pass
-        last_req_item = RequestsLog.objects.get_last_n(1)[0]
-        assert "blabla" in last_req_item.url
-
-    def test_sorted(self):
-        RequestsPriority.objects.create(url="http://rr.com", priority=-3)
-        RequestsPriority.objects.create(url="http://yahoo.com", priority=3)
-        RequestsPriority.objects.create(url="http://ya.com", priority=5)
-        RequestsLog.objects.create(url="http://rr.com", time=datetime.datetime.now())
-        RequestsLog.objects.create(url="http://yahoo.com", time=datetime.datetime.now())
-        RequestsLog.objects.create(url="http://ya.com", time=datetime.datetime.now())
-        RequestsLog.objects.create(url="http://bababa.com", time=datetime.datetime.now())
-        lst = RequestsLog.objects.get_last_10_sorted()
-        assert lst[0]['priority'] == 5
-        #print RequestsLog.objects.get_last_10_sorted()
-
-
-class RequestPriorityModelTest(TestCase):
-    def test_non_existing(self):
-        assert RequestsPriority.objects.lookup("anything") == RequestsPriority.objects.DEFAULT_PRIORITY
-
-    def test_lookup(self):
-        RequestsPriority.objects.create(url="http://yahoo.com", priority=3)
-        assert RequestsPriority.objects.lookup("http://yahoo.com") == 3
-
 
 # --------------------------------------------------------------
 #

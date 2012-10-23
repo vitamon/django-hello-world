@@ -8,13 +8,16 @@ function postSubmitCallback() {
     $("#progress").attr('hidden', true);
 }
 
+function onErrorCallback() {
+
+}
+
 $(document).ready(function () {
 
     var options = {
-        target:'#image', // target element(s) to be updated with server response
-        replaceTarget:true,
         beforeSubmit:preSubmitCallback,
-        success:postSubmitCallback
+        success:postSubmitCallback,
+        error:onErrorCallback
         //timeout:   3000
     };
 

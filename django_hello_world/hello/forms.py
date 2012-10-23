@@ -1,11 +1,10 @@
 from django import forms
-from django.forms import model_to_dict
 from hello.models import UserProfile
 from hello.widgets import BootstrapDateWidget
 
 
 class UserProfileForm(forms.ModelForm):
-    birthdate = forms.DateField(widget=BootstrapDateWidget, required=False)
+    birth_date = forms.DateField(widget=BootstrapDateWidget, required=False, input_formats=["%d-%m-%Y"])
     photo = forms.ImageField(required=False)
     jabber = forms.CharField(required=False)
     skype = forms.CharField(required=False)
@@ -29,11 +28,7 @@ class UserProfileForm(forms.ModelForm):
         self.instance.user.last_name = self.cleaned_data.get('last_name')
         self.instance.user.email = self.cleaned_data.get('email')
         self.instance.user.save()
-        self.instance.save()
 
     class Meta:
         model = UserProfile
-
-
-class UploadImageForm(forms.Form):
-    image_file = forms.ImageField()
+        exclude = ('user',)
