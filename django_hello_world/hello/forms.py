@@ -29,6 +29,9 @@ class UserProfileForm(forms.ModelForm):
         self.instance.user.email = self.cleaned_data.get('email')
         self.instance.user.save()
 
+    def error_message_list(self):
+        return ''.join("<ul>%s</ul>"%item for field in self.errors for item in self.errors[field])
+
     class Meta:
         model = UserProfile
         exclude = ('user',)
