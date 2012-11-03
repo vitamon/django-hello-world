@@ -3,3 +3,4 @@ django-annoying >= 0.7.6
 South
 selenium
 pil
+django-cleanup

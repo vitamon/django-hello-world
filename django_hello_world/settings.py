@@ -153,7 +153,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'django_hello_world.hello',
-    #'south'
+    #'south',
+    'django_cleanup', # should go after your apps
 )
 
 SOUTH_TESTS_MIGRATE = False # To disable migrations and use syncdb instead

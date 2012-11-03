@@ -15,11 +15,5 @@ def admin_page_url(item):
         , args=(item.id,))
 
 
-def upload_path(filename):
-    return os.path.join(settings.MEDIA_ROOT, filename)
-
-
-def handle_uploaded_file(f, filename):
-    destination = open(upload_path(filename), 'wb+')
-    for chunk in f.chunks():
-        destination.write(chunk)
+def get_image_path(instance, filename):
+    return os.path.join('photos', str(instance.id), filename)

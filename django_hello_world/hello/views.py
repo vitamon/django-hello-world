@@ -1,12 +1,13 @@
+from django.http import HttpResponse
+from django.utils import simplejson
 from annoying.decorators import render_to
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect, render_to_response, render
+from django.shortcuts import redirect, render_to_response
 from hello.forms import  UserProfileForm
 from hello.models import RequestsLog, UserProfile, RequestsPriority
 from django.contrib.auth import logout
-from hello.util.utils import unique_filename, handle_uploaded_file
 import settings
 import time
 
@@ -25,38 +26,31 @@ def home(request):
 @render_to('hello/home_edit.html')
 def edit(request):
     profile = request.user.get_profile()
-    form_saved = False
+    status, message = False, "Error"
     if request.method == 'POST':
         form = UserProfileForm(data=request.POST, instance=profile, files=request.FILES)
 
         if form.is_valid():
-            # slow down a bit to check progress etc
             if settings.DEBUG:
-                time.sleep(1)
-
-            if request.FILES and 'photo' in request.FILES:
-                photoFileName = unique_filename(request.FILES['photo']._name)
-                handle_uploaded_file(request.FILES['photo'], photoFileName)
-                profile.photo = photoFileName
+                time.sleep(1)# slow down a bit to check progress etc
 
             form.save()
-            form_saved = True
+            status, message = True, "Data was saved successfully"
         else:
-            # TODO: change to ajax json
-            print form.errors
+            status, message = False, form.error_messages()
     else:
         form = UserProfileForm(instance=profile)
 
     if request.is_ajax():
-        return render_to_response('hello/photo_result.html',
-            {'profile': profile,
-             'settings': settings,
-             'form_saved': form_saved})
+        return HttpResponse(simplejson.dumps({
+            'status': status,
+            'message': message,
+        }), mimetype='application/javascript')
     else:
         return {'profile': profile,
                 'is_authenticated': request.user.is_authenticated(),
                 'form': form,
-                'form_saved': form_saved}
+                'form_saved': status}
 
 
 @render_to('hello/requests.html')

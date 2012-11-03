@@ -1,4 +1,5 @@
 import datetime
+import os
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.core.cache import cache
@@ -11,6 +12,7 @@ from django.core.cache import cache
 # --------------------------------------------------------------
 from django.dispatch import receiver
 from django.forms import model_to_dict
+from hello.util.utils import get_image_path
 
 class RequestsLogManager(models.Manager):
     def get_last_ten(self):
@@ -89,7 +91,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
 
     birthdate = models.DateField(blank=True, null=True)
-    photo = models.ImageField(upload_to="photos/", blank=True, null=True)
+    photo = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     jabber = models.CharField(max_length=20, blank=True, null=True)
     skype = models.CharField(max_length=20, blank=True, null=True)
     other_contacts = models.CharField(max_length=250, blank=True, null=True)
