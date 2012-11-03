@@ -4,7 +4,7 @@ from hello.widgets import BootstrapDateWidget
 
 
 class UserProfileForm(forms.ModelForm):
-    birthdate = forms.DateField(widget=BootstrapDateWidget, required=False)
+    birth_date = forms.DateField(widget=BootstrapDateWidget, required=False, input_formats=["%d-%m-%Y"])
     photo = forms.ImageField(required=False, widget=forms.FileInput())
     jabber = forms.CharField(required=False)
     skype = forms.CharField(required=False)
@@ -28,10 +28,9 @@ class UserProfileForm(forms.ModelForm):
         self.instance.user.last_name = self.cleaned_data.get('last_name')
         self.instance.user.email = self.cleaned_data.get('email')
         self.instance.user.save()
-        self.instance.save()
 
-    def error_messages(self):
-        return '<br>'.join(item for field in self.errors for item in self.errors[field])
+    def error_message_list(self):
+        return ''.join("<ul>%s</ul>"%item for field in self.errors for item in self.errors[field])
 
     class Meta:
         model = UserProfile

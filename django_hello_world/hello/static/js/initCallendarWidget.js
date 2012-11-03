@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $(".vDateField").datepicker({
-        format:"yy-mm-dd",
+        format:"dd-mm-yyyy",
         weekStart:0,
         viewMode:'years'
     });

@@ -18,30 +18,24 @@
     {% include 'hello/title_div.html' %}
 
     <form id="editForm" class="edit_form form-horizontal" enctype="multipart/form-data" action="{% url edit %}"
-          method="post"> {% csrf_token %}
-        <div class="row">
+          method="post">
+        <div class="row">{% csrf_token %}
             <div class="span5">
                 <legend>User info</legend>
                 <div class="row">
                     <div class="span2">Name</div>
-                    <div class="span2">{{ form.first_name }}
-                        {% if form.first_name.errors %} <span class="errorlist">*</span> {% endif %}
-                    </div>
+                    <div class="span2">{{ form.first_name }} </div>
                 </div>
                 <div class="row spacer15"></div>
                 <div class="row">
                     <div class="span2">Last name</div>
-                    <div class="span2">{{ form.last_name }}
-                        {% if form.last_name.errors %} <span class="errorlist">*</span> {% endif %}
-                    </div>
+                    <div class="span2">{{ form.last_name }} </div>
                 </div>
                 <div class="row spacer15"></div>
 
                 <div class="row">
                     <div class="span2">Date<br>of birth</div>
-                    <div class="span2">{{ form.birthdate }}
-                        {% if form.birthdate.errors %} <span class="errorlist">*</span> {% endif %}
-                    </div>
+                    <div class="span2">{{ form.birth_date }} </div>
                 </div>
                 <div class="row spacer15"></div>
 
@@ -60,19 +54,15 @@
                 <div class="row">
                     <div class="span1">Email:</div>
 
-                    <div class="span2">{{ form.email }} {% if form.email.errors %}
-                        <span class="errorlist">*</span> {% endif %}
-                    </div>
+                    <div class="span2">{{ form.email }} </div>
                 </div>
                 <div class="row spacer15"></div>
-
 
                 <div class="row">
                     <div class="span1">Jabber:</div>
                     <div class="span2">{{ form.jabber }}</div>
                 </div>
                 <div class="row spacer15"></div>
-
 
                 <div class="row">
                     <div class="span1">Skype:</div>
@@ -100,7 +90,6 @@
             </div>
         </div>
     </form>
-
 
     {% include 'hello/req_footer.html' %}
 

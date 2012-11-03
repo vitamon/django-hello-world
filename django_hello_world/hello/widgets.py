@@ -9,8 +9,8 @@ from django.conf import settings
 
 class BootstrapDateWidget(forms.DateInput):
     class Media:
-        js = (settings.STATIC_URL+'datepicker/js/bootstrap-datepicker.js',
-              settings.STATIC_URL+'js/initCallendarWidget.js')
+        js = (settings.STATIC_URL + 'datepicker/js/bootstrap-datepicker.js',
+              settings.STATIC_URL + 'js/initCallendarWidget.js')
         css = {
             'all': (settings.STATIC_URL + 'datepicker/css/datepicker.css',
                     settings.STATIC_URL + 'datepicker/less/datepicker.less',)

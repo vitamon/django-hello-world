@@ -154,6 +154,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django_hello_world.hello',
     #'south',
+    'django_hello_world.requests',
     'django_cleanup', # should go after your apps
 )
 

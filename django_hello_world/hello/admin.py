@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from hello.models import RequestsLog, UserProfile, CreationLog
+from hello.models import UserProfile, CreationLog
+from requests.models import RequestsLog
 
 class UserProfileInline(admin.StackedInline):
     model = UserProfile

@@ -22,7 +22,7 @@ class Command(BaseCommand):
         sys.stderr.write(u'error: %s\n' % value)
 
     def handle(self, *args, **options):
-        for ct in ContentType.objects.all():
-            m = ct.model_class()
-            self.out(u"%s.%s : %d" % (m.__module__, m.__name__, m._default_manager.count()))
+        for cont_type in ContentType.objects.all():
+            model_class = cont_type.model_class()
+            self.out(u"%s.%s : %d" % (model_class.__module__, model_class.__name__, model_class._default_manager.count()))
         return

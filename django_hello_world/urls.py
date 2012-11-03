@@ -11,12 +11,9 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', 'django_hello_world.hello.views.home', name='home'),
     url(r'^edit/$', 'django_hello_world.hello.views.edit', name='edit'),
-    url(r'^requests/$', 'django_hello_world.hello.views.requests', name='requests'),
-    url(r'^requests/up/(?P<id>\d+)/$', 'django_hello_world.hello.views.requests_up', name='req_up'),
-    url(r'^requests/down/(?P<id>\d+)/$', 'django_hello_world.hello.views.requests_down', name='req_down'),
+    url(r'^requests/', include('django_hello_world.requests.urls')),
     url(r'^logout/$', 'django_hello_world.hello.views.logout_view', name='logout'),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}, name="login"),
-    # url(r'^logout/$', 'django.contrib.auth.views.logout',{'template_name': 'logout.html' }, name='logout'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -32,7 +29,7 @@ urlpatterns += patterns('',
 
 if settings.DEBUG:
     urlpatterns += patterns('',
-        (r'^%s(?P<path>.*)$'%settings.MEDIA_URL, 'django.views.static.serve',
+        (r'^%s(?P<path>.*)$' % settings.MEDIA_URL, 'django.views.static.serve',
          {'document_root': settings.MEDIA_ROOT,
           'show_indexes': True}),
     )

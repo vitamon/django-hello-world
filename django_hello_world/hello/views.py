@@ -4,10 +4,11 @@ from annoying.decorators import render_to
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect, render_to_response
+from django.shortcuts import redirect
 from hello.forms import  UserProfileForm
-from hello.models import RequestsLog, UserProfile, RequestsPriority
+from hello.models import UserProfile
 from django.contrib.auth import logout
+from requests.models import RequestsLog, RequestsPriority
 import settings
 import time
 
@@ -18,15 +19,16 @@ def home(request):
         return redirect(reverse("edit"))
     user = User.objects.all()[0]
 
-    return {'profile': UserProfile.ensure_profile_for(user),
+    return {'profile': UserProfile.objects.get_or_create(user=user)[0],
             'is_authenticated': False}
 
 
 @login_required
 @render_to('hello/home_edit.html')
 def edit(request):
-    profile = request.user.get_profile()
+    profile = UserProfile.objects.get_or_create(user=request.user)[0]
     status, message = False, "Error"
+
     if request.method == 'POST':
         form = UserProfileForm(data=request.POST, instance=profile, files=request.FILES)
 
@@ -37,7 +39,7 @@ def edit(request):
             form.save()
             status, message = True, "Data was saved successfully"
         else:
-            status, message = False, form.error_messages()
+            status, message = False, form.error_message_list()
     else:
         form = UserProfileForm(instance=profile)
 
