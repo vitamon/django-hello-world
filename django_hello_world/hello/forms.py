@@ -2,9 +2,8 @@ from django import forms
 from hello.models import UserProfile
 from hello.widgets import BootstrapDateWidget
 
-
 class UserProfileForm(forms.ModelForm):
-    birth_date = forms.DateField(widget=BootstrapDateWidget, required=False, input_formats=["%d-%m-%Y"])
+    birthdate = forms.DateField(widget=BootstrapDateWidget, required=False, input_formats=["%d-%m-%Y"])
     photo = forms.ImageField(required=False, widget=forms.FileInput())
     jabber = forms.CharField(required=False)
     skype = forms.CharField(required=False)

@@ -11,7 +11,6 @@ class HttpTest(TestCase):
         client = Client()
         response = client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '42 Coffee Cups Test Assignment')
 
     def test_context_processor(self):
         sets = django_settings({})

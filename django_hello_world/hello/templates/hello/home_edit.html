@@ -7,7 +7,6 @@
 
 {% block scripts %}
     {{ form.media }}
-
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.form.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.uniform.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/hello_edit.js"></script>
@@ -35,7 +34,7 @@
 
                 <div class="row">
                     <div class="span2">Date<br>of birth</div>
-                    <div class="span2">{{ form.birth_date }} </div>
+                    <div class="span2">{{ form.birthdate }} </div>
                 </div>
                 <div class="row spacer15"></div>
 
@@ -45,7 +44,14 @@
                 </div>
                 <div class="row spacer15"></div>
 
-                {% include "hello/photo_result.html" %}
+                <div class="row">
+                    {% if profile.photo %}
+                        <img id="photo" class="span4" src="/{{ settings.MEDIA_URL }}{{ profile.photo }}">
+                    {% else %}
+                        <img class="span4" src="{{ STATIC_URL }}images/non_avatar_big.png">
+                    {% endif %}
+                </div>
+                <div class="row spacer15"></div>
             </div>
 
             <div class="span5 offset1 float-right">

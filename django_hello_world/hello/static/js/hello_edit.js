@@ -23,7 +23,7 @@ function postSubmitCallback(data) {
 }
 
 function onErrorCallback(data) {
-    postSubmitCallback({status:false, message:"error"})
+    postSubmitCallback({status:false, message:"server communication error"})
 }
 
 function previewImage(input) {

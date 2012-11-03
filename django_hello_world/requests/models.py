@@ -72,3 +72,5 @@ class RequestsPriority(models.Model):
 
     class Meta:
         db_table = 'hello_request_priority'
+        verbose_name = "Request Priority"
+        verbose_name_plural = "Request Priorities"

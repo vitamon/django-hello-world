@@ -4,3 +4,5 @@ South
 selenium
 pil
 django-cleanup
+django-admin-tools
+django-admintools-bootstrap
