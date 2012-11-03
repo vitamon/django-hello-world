@@ -39,7 +39,6 @@ function previewImage(input) {
 }
 
 $(document).ready(function () {
-    $(".alert").alert().hide();
     $(".close").on('click', function () {
         $(".alert").hide();
     });
