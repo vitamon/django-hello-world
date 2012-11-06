@@ -48,7 +48,7 @@
                     {% if profile.photo %}
                         <img id="photo" class="span4" src="/{{ settings.MEDIA_URL }}{{ profile.photo }}">
                     {% else %}
-                        <img class="span4" src="{{ STATIC_URL }}images/non_avatar_big.png">
+                        <img id="photo" class="span4" src="{{ STATIC_URL }}images/non_avatar_big.png">
                     {% endif %}
                 </div>
                 <div class="row spacer15"></div>

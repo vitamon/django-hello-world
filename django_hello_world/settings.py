@@ -157,7 +157,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'django_hello_world.hello',
-    #'south',
+    'south',
     'django_hello_world.requests',
     'django_cleanup', # should go after your apps
 )
